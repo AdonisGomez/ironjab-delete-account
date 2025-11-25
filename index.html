@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eliminar Cuenta - Iron Jab</title>
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/AdonisGomez/ironjab-delete-account/main/favicon.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: #fafafa;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .logo {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+        
+        h1 {
+            color: #FF6B35;
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+        
+        .tagline {
+            color: #808080;
+            font-size: 16px;
+        }
+        
+        .card {
+            background: linear-gradient(145deg, #1e1e1e 0%, #252525 100%);
+            padding: 28px;
+            border-radius: 16px;
+            margin: 24px 0;
+            border: 1px solid rgba(255, 107, 53, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        .card h2 {
+            color: #FF6B35;
+            font-size: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .step {
+            margin: 20px 0;
+            padding: 16px 20px;
+            background: rgba(255, 107, 53, 0.05);
+            border-left: 4px solid #FF6B35;
+            border-radius: 0 12px 12px 0;
+        }
+        
+        .step h3 {
+            color: #FFB347;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        
+        .step p {
+            color: #e0e0e0;
+            font-size: 15px;
+        }
+        
+        a {
+            color: #FF6B35;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        
+        a:hover {
+            color: #FFB347;
+            text-decoration: underline;
+        }
+        
+        .email-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #FF6B35 0%, #E85D04 100%);
+            color: white !important;
+            padding: 14px 28px;
+            border-radius: 30px;
+            text-decoration: none !important;
+            font-weight: 600;
+            margin-top: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+        }
+        
+        .email-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+        }
+        
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        ul li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #e0e0e0;
+        }
+        
+        ul li:last-child {
+            border-bottom: none;
+        }
+        
+        ul li::before {
+            content: "✓";
+            color: #10B981;
+            font-weight: bold;
+            font-size: 14px;
+            background: rgba(16, 185, 129, 0.1);
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .warning {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin-top: 16px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        
+        .warning-icon {
+            font-size: 20px;
+        }
+        
+        .warning p {
+            color: #F59E0B;
+            font-size: 14px;
+        }
+        
+        .time-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        footer p {
+            color: #5a5a5a;
+            font-size: 13px;
+            margin: 8px 0;
+        }
+        
+        footer a {
+            color: #808080;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 24px 16px;
+            }
+            
+            h1 {
+                font-size: 26px;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+            
+            .logo {
+                font-size: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">🥊</div>
+            <h1>Iron Jab</h1>
+            <p class="tagline">Solicitud de Eliminación de Cuenta</p>
+        </header>
+        
+        <div class="card">
+            <h2>📧 Cómo eliminar tu cuenta</h2>
+            <p style="color: #b0b0b0; margin-bottom: 20px;">
+                Para solicitar la eliminación de tu cuenta y todos los datos asociados, sigue estos pasos:
+            </p>
+            
+            <div class="step">
+                <h3>Paso 1</h3>
+                <p>Envía un correo electrónico a nuestra dirección de soporte:</p>
+                <a href="mailto:ironjab@prevalentcluster.com?subject=Solicitud%20de%20eliminación%20de%20cuenta&body=Hola,%0A%0ASolicito%20la%20eliminación%20de%20mi%20cuenta%20de%20Iron%20Jab.%0A%0ACorreo%20asociado%20a%20mi%20cuenta:%20[ESCRIBE%20TU%20EMAIL%20AQUÍ]%0A%0AGracias." class="email-btn">
+                    ✉️ Enviar solicitud
+                </a>
+            </div>
+            
+            <div class="step">
+                <h3>Paso 2</h3>
+                <p>En el asunto del correo escribe: <strong>"Solicitud de eliminación de cuenta"</strong></p>
+            </div>
+            
+            <div class="step">
+                <h3>Paso 3</h3>
+                <p>Incluye en el cuerpo del mensaje el <strong>correo electrónico</strong> asociado a tu cuenta de Iron Jab para que podamos identificarla.</p>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>🗑️ Datos que se eliminarán</h2>
+            <p style="color: #b0b0b0; margin-bottom: 16px;">
+                Al procesar tu solicitud, se eliminarán permanentemente los siguientes datos:
+            </p>
+            <ul>
+                <li>Información del perfil (nombre, email, foto de perfil)</li>
+                <li>Rutinas de entrenamiento personalizadas</li>
+                <li>Historial completo de entrenamientos</li>
+                <li>Estadísticas y datos de progreso</li>
+                <li>Configuraciones y preferencias de la aplicación</li>
+                <li>Registros de hidratación y recordatorios</li>
+            </ul>
+            
+            <div class="warning">
+                <span class="warning-icon">⚠️</span>
+                <p><strong>Importante:</strong> Esta acción es irreversible. Una vez eliminados, tus datos no podrán ser recuperados.</p>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>⏱️ Tiempo de procesamiento</h2>
+            <p style="color: #e0e0e0;">
+                Tu solicitud será procesada en un plazo máximo de:
+            </p>
+            <p style="margin: 16px 0;">
+                <span class="time-badge">30 días hábiles</span>
+            </p>
+            <p style="color: #b0b0b0; font-size: 14px;">
+                Recibirás una confirmación por correo electrónico cuando la eliminación de tu cuenta se haya completado exitosamente.
+            </p>
+        </div>
+        
+        <div class="card">
+            <h2>❓ ¿Tienes preguntas?</h2>
+            <p style="color: #e0e0e0;">
+                Si tienes alguna duda sobre el proceso de eliminación de cuenta o sobre tus datos, no dudes en contactarnos:
+            </p>
+            <p style="margin-top: 12px;">
+                📧 <a href="mailto:ironjab@prevalentcluster.com">ironjab@prevalentcluster.com</a>
+            </p>
+        </div>
+        
+        <footer>
+            <p>© 2024 Iron Jab. Todos los derechos reservados.</p>
+            <p>
+                <a href="mailto:ironjab@prevalentcluster.com">Contacto</a> · 
+                <a href="#">Política de Privacidad</a>
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
+
