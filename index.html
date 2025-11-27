@@ -212,7 +212,102 @@
                 font-size: 40px;
             }
         }
+        
+        .email-btn {
+            cursor: pointer;
+            border: none;
+            outline: none;
+        }
+        
+        .email-btn:active {
+            transform: translateY(0);
+        }
     </style>
+    <script>
+        function sendEmail() {
+            const email = 'ironjab@prevalentcluster.com';
+            const subject = encodeURIComponent('Solicitud de eliminación de cuenta');
+            const body = encodeURIComponent('Hola,\n\nSolicito la eliminación de mi cuenta de Iron Jab.\n\nCorreo asociado a mi cuenta: [ESCRIBE TU EMAIL AQUÍ]\n\nGracias.');
+            
+            // Crear el enlace mailto
+            const mailtoLink = 'mailto:' + email + '?subject=' + subject + '&body=' + body;
+            
+            // Intentar abrir el cliente de correo
+            try {
+                // Crear un enlace temporal y hacer clic en él
+                const link = document.createElement('a');
+                link.href = mailtoLink;
+                link.style.display = 'none';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                // Mostrar mensaje de ayuda después de un momento
+                setTimeout(function() {
+                    const errorMsg = document.getElementById('emailError');
+                    if (errorMsg) {
+                        errorMsg.style.display = 'block';
+                    }
+                }, 500);
+            } catch (error) {
+                console.error('Error al abrir cliente de correo:', error);
+                // Si hay error, mostrar el mensaje alternativo
+                const errorMsg = document.getElementById('emailError');
+                if (errorMsg) {
+                    errorMsg.style.display = 'block';
+                }
+            }
+        }
+        
+        function copyEmail() {
+            const email = 'ironjab@prevalentcluster.com';
+            
+            // Intentar usar la API moderna del portapapeles
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(email).then(function() {
+                    alert('✓ Correo copiado al portapapeles: ' + email);
+                }).catch(function(err) {
+                    // Fallback si falla
+                    fallbackCopyEmail(email);
+                });
+            } else {
+                // Fallback para navegadores antiguos
+                fallbackCopyEmail(email);
+            }
+        }
+        
+        function fallbackCopyEmail(email) {
+            // Método alternativo para copiar
+            const textArea = document.createElement('textarea');
+            textArea.value = email;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-999999px';
+            document.body.appendChild(textArea);
+            textArea.select();
+            
+            try {
+                document.execCommand('copy');
+                alert('✓ Correo copiado al portapapeles: ' + email);
+            } catch (err) {
+                alert('No se pudo copiar automáticamente. El correo es: ' + email);
+            }
+            
+            document.body.removeChild(textArea);
+        }
+        
+        // Hacer que el botón funcione con teclado
+        document.addEventListener('DOMContentLoaded', function() {
+            const emailBtn = document.getElementById('emailBtn');
+            if (emailBtn) {
+                emailBtn.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        sendEmail();
+                    }
+                });
+            }
+        });
+    </script>
 </head>
 <body>
     <div class="container">
@@ -231,9 +326,13 @@
             <div class="step">
                 <h3>Paso 1</h3>
                 <p>Envía un correo electrónico a nuestra dirección de soporte:</p>
-                <a href="mailto:ironjab@prevalentcluster.com?subject=Solicitud%20de%20eliminación%20de%20cuenta&body=Hola,%0A%0ASolicito%20la%20eliminación%20de%20mi%20cuenta%20de%20Iron%20Jab.%0A%0ACorreo%20asociado%20a%20mi%20cuenta:%20[ESCRIBE%20TU%20EMAIL%20AQUÍ]%0A%0AGracias." class="email-btn">
+                <button onclick="sendEmail()" class="email-btn" id="emailBtn" type="button">
                     ✉️ Enviar solicitud
-                </a>
+                </button>
+                <p id="emailError" style="color: #F59E0B; margin-top: 10px; display: none; font-size: 14px;">
+                    Si el botón no funciona, copia este correo: <strong id="emailAddress">ironjab@prevalentcluster.com</strong>
+                    <button onclick="copyEmail()" style="background: rgba(255, 107, 53, 0.2); border: 1px solid #FF6B35; color: #FF6B35; padding: 4px 12px; border-radius: 6px; cursor: pointer; margin-left: 8px; font-size: 12px;">Copiar</button>
+                </p>
             </div>
             
             <div class="step">
