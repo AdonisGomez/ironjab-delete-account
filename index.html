@@ -222,6 +222,46 @@
         }
     </style>
     <script>
+        function handleEmailClick(event) {
+            // Intentar abrir el cliente de correo
+            const email = 'ironjab@prevalentcluster.com';
+            const subject = encodeURIComponent('Solicitud de eliminación de cuenta');
+            const body = encodeURIComponent('Hola,\n\nSolicito la eliminación de mi cuenta de Iron Jab.\n\nCorreo asociado a mi cuenta: [ESCRIBE TU EMAIL AQUÍ]\n\nGracias.');
+            const mailtoLink = 'mailto:' + email + '?subject=' + subject + '&body=' + body;
+            
+            // Intentar múltiples métodos para abrir el cliente de correo
+            try {
+                // Método 1: Usar window.location (más compatible)
+                window.location.href = mailtoLink;
+                
+                // Método 2: Si no funciona, crear un enlace temporal
+                setTimeout(function() {
+                    const link = document.createElement('a');
+                    link.href = mailtoLink;
+                    link.target = '_blank';
+                    link.rel = 'noopener noreferrer';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                }, 100);
+                
+                // Mostrar instrucciones manuales después de 2 segundos por si no se abrió
+                setTimeout(function() {
+                    const instructions = document.getElementById('emailInstructions');
+                    if (instructions) {
+                        instructions.style.display = 'block';
+                    }
+                }, 2000);
+            } catch (error) {
+                console.error('Error al abrir cliente de correo:', error);
+                // Mostrar instrucciones manuales si hay error
+                const instructions = document.getElementById('emailInstructions');
+                if (instructions) {
+                    instructions.style.display = 'block';
+                }
+            }
+        }
+        
         function copyEmail() {
             const email = 'ironjab@prevalentcluster.com';
             
@@ -276,13 +316,26 @@
             <div class="step">
                 <h3>Paso 1</h3>
                 <p>Envía un correo electrónico a nuestra dirección de soporte:</p>
-                <a href="mailto:ironjab@prevalentcluster.com?subject=Solicitud%20de%20eliminación%20de%20cuenta&body=Hola,%0A%0ASolicito%20la%20eliminación%20de%20mi%20cuenta%20de%20Iron%20Jab.%0A%0ACorreo%20asociado%20a%20mi%20cuenta:%20[ESCRIBE%20TU%20EMAIL%20AQUÍ]%0A%0AGracias." class="email-btn">
+                <a href="mailto:ironjab@prevalentcluster.com?subject=Solicitud%20de%20eliminación%20de%20cuenta&body=Hola,%0A%0ASolicito%20la%20eliminación%20de%20mi%20cuenta%20de%20Iron%20Jab.%0A%0ACorreo%20asociado%20a%20mi%20cuenta:%20[ESCRIBE%20TU%20EMAIL%20AQUÍ]%0A%0AGracias." class="email-btn" onclick="handleEmailClick(event)">
                     ✉️ Enviar solicitud
                 </a>
                 <p style="color: #F59E0B; margin-top: 10px; font-size: 14px;">
                     Si el botón no funciona, copia este correo: <strong id="emailAddress">ironjab@prevalentcluster.com</strong>
                     <button onclick="copyEmail()" style="background: rgba(255, 107, 53, 0.2); border: 1px solid #FF6B35; color: #FF6B35; padding: 4px 12px; border-radius: 6px; cursor: pointer; margin-left: 8px; font-size: 12px;">Copiar</button>
                 </p>
+                <div id="emailInstructions" style="display: none; background: rgba(255, 107, 53, 0.1); border: 1px solid rgba(255, 107, 53, 0.3); padding: 16px; border-radius: 8px; margin-top: 12px;">
+                    <p style="color: #FFB347; font-weight: 600; margin-bottom: 8px;">📧 Instrucciones manuales:</p>
+                    <p style="color: #e0e0e0; font-size: 14px; margin-bottom: 4px;"><strong>Para:</strong> ironjab@prevalentcluster.com</p>
+                    <p style="color: #e0e0e0; font-size: 14px; margin-bottom: 4px;"><strong>Asunto:</strong> Solicitud de eliminación de cuenta</p>
+                    <p style="color: #e0e0e0; font-size: 14px;"><strong>Mensaje:</strong></p>
+                    <p style="color: #b0b0b0; font-size: 13px; margin-top: 4px; white-space: pre-line;">Hola,
+
+Solicito la eliminación de mi cuenta de Iron Jab.
+
+Correo asociado a mi cuenta: [ESCRIBE TU EMAIL AQUÍ]
+
+Gracias.</p>
+                </div>
             </div>
             
             <div class="step">
